@@ -48,6 +48,7 @@ export interface ProposalSection {
   judgeFocus: string;
   helperAgentId: string;
   templateContent: string;
+  judgingCriteria?: string;
 }
 
 export interface GeneratedOutput {
@@ -58,3 +59,49 @@ export interface GeneratedOutput {
   authorAgentId: string;
   inputUsed: string;
 }
+
+export interface UserSimulationInput {
+  currentCondition: string;
+  emotionalState: string;
+  activeDebtsCount: number;
+  hasUrgentCollection: boolean;
+  hasEmergencyFund: boolean;
+  consideringNewDebt: boolean;
+}
+
+export interface UserRiskResult {
+  riskLevel: 'Rendah' | 'Sedang' | 'Tinggi' | 'Kritis';
+  emotionalTriggerSummary: string;
+  jedaRecommendation: string;
+  sevenDayPlan: string[];
+  thirtyDayPlan: string[];
+  nextAction: string;
+  escalationNote?: string;
+}
+
+export interface InvestorReadinessStage {
+  id: number;
+  name: string;
+  description: string;
+}
+
+export interface InvestorReadinessResult {
+  readinessLevel: 'Belum Siap' | 'Stabilisasi Dulu' | 'Mulai Edukasi' | 'Siap Belajar Investasi Dasar';
+  score: number;
+  explanation: string;
+  nextStep: string;
+  disclaimer: string;
+}
+
+export interface SurveyInsightMetric {
+  label: string;
+  value: string;
+  description: string;
+}
+
+export interface SurveyThemeCluster {
+  theme: string;
+  percentage: number;
+  featureSolution: string;
+}
+

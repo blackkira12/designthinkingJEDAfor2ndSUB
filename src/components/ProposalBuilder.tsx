@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { proposalSections } from '../data/proposalSections';
 import { agents } from '../data/agents';
 import { generateProposalDraft } from '../lib/generator';
-import { Save, CheckCircle, AlertTriangle, User, Copy, BookOpen } from 'lucide-react';
+import { Save, CheckCircle, AlertTriangle, User, Copy, BookOpen, Printer } from 'lucide-react';
 import { appendDisclaimer } from '../lib/safety';
 
 export const ProposalBuilder: React.FC = () => {
@@ -64,7 +64,7 @@ export const ProposalBuilder: React.FC = () => {
   const isOverLimit = currentWordCount > activeSection.maxWords;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 print:hidden">
       {/* Description Section */}
       <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 flex justify-between items-center flex-wrap gap-4">
         <div>
@@ -74,7 +74,7 @@ export const ProposalBuilder: React.FC = () => {
             Gunakan panduan ekspektasi juri dan bantuan Agen Ahli untuk menghasilkan fondasi paragraf secara otomatis.
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 print:hidden">
           <button
             onClick={handleSave}
             className="px-4 py-2.5 bg-teal-600 text-white text-xs font-semibold rounded-lg hover:bg-teal-700 shadow-xs flex items-center gap-1.5 cursor-pointer"
@@ -88,6 +88,13 @@ export const ProposalBuilder: React.FC = () => {
           >
             <Copy className="w-3.5 h-3.5" />
             <span>Salin Semua</span>
+          </button>
+          <button
+            onClick={() => window.print()}
+            className="px-4 py-2.5 bg-slate-100 text-slate-700 text-xs font-semibold rounded-lg hover:bg-slate-200 border border-slate-200 flex items-center gap-1.5 cursor-pointer"
+          >
+            <Printer className="w-3.5 h-3.5" />
+            <span>Cetak Proposal</span>
           </button>
         </div>
       </div>
@@ -163,6 +170,16 @@ export const ProposalBuilder: React.FC = () => {
               </button>
             </div>
 
+            {/* Judging Criteria Badge */}
+            {activeSection.judgingCriteria && (
+              <div className="flex items-center gap-2 text-xs">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Kriteria Penilaian:</span>
+                <span className="bg-teal-50 text-teal-800 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border border-teal-200/60">
+                  {activeSection.judgingCriteria}
+                </span>
+              </div>
+            )}
+
             {/* Judge Expectation */}
             <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 text-xs leading-normal">
               <span className="font-bold text-slate-800 uppercase block mb-1">Ekspektasi Juri (Fokus Evaluasi):</span>
@@ -212,6 +229,20 @@ export const ProposalBuilder: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Print-only Proposal View */}
+      <div className="hidden print:block font-serif text-slate-900 leading-relaxed text-sm max-w-4xl mx-auto space-y-6">
+        <div className="text-center space-y-2 border-b border-slate-300 pb-4 mb-6">
+          <h1 className="text-2xl font-bold uppercase">Proposal JEDA - PIDI Hackathon 2026</h1>
+          <p className="text-xs italic text-slate-500">Platform Resiliensi Keuangan & Kontrol Perilaku Finansial Hulu</p>
+        </div>
+        {sections.map((s, idx) => (
+          <div key={s.id} className="space-y-2 break-inside-avoid pt-2">
+            <h2 className="text-sm font-bold border-b border-slate-200 pb-1 text-slate-900">{idx + 1}. {s.title}</h2>
+            <p className="whitespace-pre-wrap text-justify text-xs text-slate-700 leading-relaxed">{draftContents[s.id] || s.templateContent}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

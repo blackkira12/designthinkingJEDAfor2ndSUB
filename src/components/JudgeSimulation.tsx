@@ -169,6 +169,53 @@ export const JudgeSimulation: React.FC = () => {
                 </div>
               </div>
 
+              {/* Compliance & Penalty Checklist */}
+              <div className="border-t border-slate-100 pt-4 space-y-2">
+                <h4 className="font-bold text-slate-800 text-xs uppercase tracking-wider">Verifikasi Kepatuhan & Penghindaran Penalti:</h4>
+                <div className="space-y-1.5 text-xs">
+                  <div className="flex items-center justify-between p-2 bg-slate-50 rounded-lg">
+                    <span className="text-slate-700 font-medium">Jembatan Debt-to-Investor:</span>
+                    {proposalText.toLowerCase().match(/(investor|investasi|readiness|pathway)/) ? (
+                      <span className="text-emerald-600 font-bold">✓ Terhubung</span>
+                    ) : (
+                      <span className="text-red-500 font-bold">✗ Penalti: Tidak Terhubung</span>
+                    )}
+                  </div>
+                  <div className="flex items-center justify-between p-2 bg-slate-50 rounded-lg">
+                    <span className="text-slate-700 font-medium">Klaim Nasihat Investasi (Saham/Portofolio):</span>
+                    {proposalText.toLowerCase().match(/(rekomendasi saham|rekomendasi portofolio|saran investasi personal|membelikan saham)/) ? (
+                      <span className="text-red-500 font-bold">✗ Terdeteksi (Penalti!)</span>
+                    ) : (
+                      <span className="text-emerald-600 font-bold">✓ Aman (Bebas Klaim)</span>
+                    )}
+                  </div>
+                  <div className="flex items-center justify-between p-2 bg-slate-50 rounded-lg">
+                    <span className="text-slate-700 font-medium">Klaim Penyaluran Pinjaman/Dana:</span>
+                    {proposalText.toLowerCase().match(/(menyalurkan pinjaman|memberikan kredit|dana pinjaman|pinjaman modal)/) ? (
+                      <span className="text-red-500 font-bold">✗ Terdeteksi (Penalti!)</span>
+                    ) : (
+                      <span className="text-emerald-600 font-bold">✓ Aman (Bebas Klaim)</span>
+                    )}
+                  </div>
+                  <div className="flex items-center justify-between p-2 bg-slate-50 rounded-lg">
+                    <span className="text-slate-700 font-medium">Kepatuhan Privasi (UU PDP):</span>
+                    {proposalText.toLowerCase().match(/(uu pdp|privasi|minimisasi data|privacy-by-design)/) ? (
+                      <span className="text-emerald-600 font-bold">✓ Terdeteksi</span>
+                    ) : (
+                      <span className="text-red-500 font-bold">✗ Penalti: Belum Dicantumkan</span>
+                    )}
+                  </div>
+                  <div className="flex items-center justify-between p-2 bg-slate-50 rounded-lg">
+                    <span className="text-slate-700 font-medium">Metrik Dampak (FSI/TIR):</span>
+                    {proposalText.toLowerCase().match(/(metrik|fsi|tir|fsi bulanan|index|interception)/) ? (
+                      <span className="text-emerald-600 font-bold">✓ Terdeteksi</span>
+                    ) : (
+                      <span className="text-red-500 font-bold">✗ Penalti: Belum Ada Metrik</span>
+                    )}
+                  </div>
+                </div>
+              </div>
+
               {/* Strongest vs Weakest */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-slate-100 pt-4">
                 <div className="bg-emerald-50/40 p-4 border border-emerald-100 rounded-xl space-y-1">

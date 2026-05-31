@@ -10,14 +10,22 @@ import ProposalBuilder from '../components/ProposalBuilder';
 import RubricEvaluator from '../components/RubricEvaluator';
 import JudgeSimulation from '../components/JudgeSimulation';
 import CanvasExportPreview from '../components/CanvasExportPreview';
+import UserSimulation from '../components/UserSimulation';
+import InvestorReadinessPathway from '../components/InvestorReadinessPathway';
+import SurveyInsightDashboard from '../components/SurveyInsightDashboard';
+import JudgeQASimulator from '../components/JudgeQASimulator';
 import { SAFETY_DISCLAIMERS } from '../lib/safety';
-import { LayoutGrid, Users, Wrench, Award, Sparkles, FileText, CheckSquare, ShieldAlert, Copy, ClipboardList } from 'lucide-react';
+import { LayoutGrid, Users, Wrench, Award, Sparkles, FileText, CheckSquare, ShieldAlert, Copy, ClipboardList, Smartphone, TrendingUp, BarChart3, MessageSquare } from 'lucide-react';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState<string>('dashboard');
 
   const navigationItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutGrid },
+    { id: 'user-simulation', label: 'Simulasi Pengguna', icon: Smartphone },
+    { id: 'investor-readiness', label: 'Kesiapan Investasi', icon: TrendingUp },
+    { id: 'survey-insight', label: 'Dashboard Survei', icon: BarChart3 },
+    { id: 'qa-simulator', label: 'Tanya Jawab Juri', icon: MessageSquare },
     { id: 'roster', label: 'Roster Agen', icon: Users },
     { id: 'skills', label: 'Pustaka Skill', icon: Wrench },
     { id: 'workflows', label: 'Alur Diamond', icon: Award },
@@ -29,9 +37,9 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 text-slate-800 font-sans">
+    <div className="flex flex-col min-h-screen bg-slate-50 text-slate-800 font-sans print:bg-white print:text-black">
       {/* Global Header */}
-      <header className="sticky top-0 z-50 bg-white border-b border-slate-200/80 px-6 py-4 shadow-2xs">
+      <header className="sticky top-0 z-50 bg-white border-b border-slate-200/80 px-6 py-4 shadow-2xs print:hidden">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
             <div className="flex items-center gap-2">
@@ -55,10 +63,10 @@ export default function Home() {
       </header>
 
       {/* Main Container */}
-      <div className="max-w-7xl mx-auto w-full px-4 md:px-6 py-8 flex-1 flex flex-col lg:flex-row gap-8">
+      <div className="max-w-7xl mx-auto w-full px-4 md:px-6 py-8 flex-1 flex flex-col lg:flex-row gap-8 print:py-0 print:px-0 print:gap-0">
         
         {/* Navigation Sidebar */}
-        <aside className="lg:w-64 shrink-0">
+        <aside className="lg:w-64 shrink-0 print:hidden">
           <nav className="bg-white border border-slate-200 rounded-2xl p-4 space-y-1.5 shadow-2xs">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block px-3 mb-2">Workspace Menu</span>
             {navigationItems.map((item) => {
@@ -84,6 +92,10 @@ export default function Home() {
         {/* Workspace Display Area */}
         <main className="flex-1 flex flex-col min-w-0">
           {activeTab === 'dashboard' && <Dashboard setActiveTab={setActiveTab} />}
+          {activeTab === 'user-simulation' && <UserSimulation />}
+          {activeTab === 'investor-readiness' && <InvestorReadinessPathway />}
+          {activeTab === 'survey-insight' && <SurveyInsightDashboard />}
+          {activeTab === 'qa-simulator' && <JudgeQASimulator />}
           {activeTab === 'roster' && <AgentRoster />}
           {activeTab === 'skills' && <SkillsLibrary />}
           {activeTab === 'workflows' && <WorkflowBoard />}
@@ -97,7 +109,7 @@ export default function Home() {
       </div>
 
       {/* Persistent Safety Footer */}
-      <footer className="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 px-6 mt-12 text-xs">
+      <footer className="bg-slate-900 text-slate-400 border-t border-slate-800 py-6 px-6 mt-12 text-xs print:hidden">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-6 justify-between items-start md:items-center">
           <div className="space-y-1 max-w-4xl">
             <div className="flex items-center gap-1.5 text-amber-500 font-bold mb-1">

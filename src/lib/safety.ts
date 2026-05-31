@@ -1,8 +1,11 @@
 export const SAFETY_DISCLAIMERS = {
-  isNotLender: "JEDA bukan aplikasi pinjaman dan tidak menyalurkan pinjaman.",
-  isNotProfessionalAdvice: "JEDA tidak menggantikan nasihat hukum, keuangan profesional, psikolog, atau psikiater.",
-  emergencyContact: "Jika Anda mengalami tekanan berat, pikiran menyakiti diri, atau krisis psikologis, segera hubungi layanan darurat atau tenaga profesional.",
-  anonymizationNotice: "Data sensitif sebaiknya dianonimkan saat digunakan dalam prototype."
+  isNotLender: "JEDA bukan aplikasi pinjaman, tidak menyalurkan pinjaman, dan tidak memfasilitasi pendanaan dalam bentuk apa pun.",
+  isNotBroker: "JEDA bukan broker keuangan, bukan perantara mediasi komersial, bukan agen penagihan (debt collector), dan tidak memediasi utang secara komersial.",
+  isNotInvestmentAdvisor: "JEDA bukan penasihat investasi berlisensi dan tidak memberikan rekomendasi portofolio investasi, produk saham, reksa dana, kripto, atau produk finansial komersial lainnya.",
+  isNotProfessionalAdvice: "JEDA tidak menggantikan nasihat hukum, keuangan profesional bersertifikat, psikolog klinis, atau psikiater.",
+  emergencyContact: "Jika Anda mengalami tekanan berat, pikiran menyakiti diri, atau krisis psikologis akut, segera hubungi layanan darurat Hotline Kesehatan Jiwa Kemenkes (119 ext. 8) atau tenaga medis profesional terdekat.",
+  privacyPolicy: "JEDA dirancang dengan prinsip Privacy-by-Design. Modul ini tidak mengumpulkan data nomor HP, daftar kontak, isi SMS, atau isi galeri foto. Seluruh data diproses secara anonim secara lokal di perangkat pengguna melalui browser.",
+  anonymizationNotice: "Data pribadi sensitif sebaiknya tidak dimasukkan atau dianonimkan terlebih dahulu saat diinput ke dalam sistem simulasi."
 };
 
 /**
@@ -11,8 +14,8 @@ export const SAFETY_DISCLAIMERS = {
  */
 export function scanInputSafety(text: string) {
   const lower = text.toLowerCase();
-  const selfHarmKeywords = ['bunuh diri', 'akhiri hidup', 'menyerah saja', 'mati saja', 'gak kuat lagi', 'lompat'];
-  const illegalEscalationKeywords = ['kabur', 'pukul', 'balas dendam', 'tipu', 'manipulasi data', 'joki pinjol'];
+  const selfHarmKeywords = ['bunuh diri', 'akhiri hidup', 'menyerah saja', 'mati saja', 'gak kuat lagi', 'lompat', 'ingin mati'];
+  const illegalEscalationKeywords = ['kabur', 'pukul', 'balas dendam', 'tipu', 'manipulasi data', 'joki pinjol', 'hack dc', 'serang dc'];
 
   const hasSelfHarm = selfHarmKeywords.some(keyword => lower.includes(keyword));
   const hasIllegalEscalation = illegalEscalationKeywords.some(keyword => lower.includes(keyword));
@@ -21,9 +24,9 @@ export function scanInputSafety(text: string) {
     hasSelfHarm,
     hasIllegalEscalation,
     alertMessage: hasSelfHarm 
-      ? "Sistem mendeteksi tingkat kepanikan kritis dengan indikasi distres berat. Pengguna harus segera diarahkan ke Hotline Kesehatan Mental Kementerian Kesehatan (119 ext. 8) atau mitra Psikolog Klinis." 
+      ? `SISTEM MENDETEKSI TINGKAT KRISIS TINGGI: ${SAFETY_DISCLAIMERS.emergencyContact}` 
       : hasIllegalEscalation 
-        ? "Sistem mendeteksi indikasi tindakan ilegal atau berisiko tinggi. Platform mendidik pengguna untuk menghindari tindakan penipuan atau penghindaran hukum."
+        ? "PERINGATAN KEPATUHAN HUKUM: JEDA mendidik pengguna untuk menyelesaikan masalah keuangan melalui jalur hukum resmi dan mediasi legal OJK. Kami tidak mendukung tindakan manipulasi data, penipuan, atau perusakan fisik."
         : null
   };
 }
@@ -32,5 +35,5 @@ export function scanInputSafety(text: string) {
  * Appends standard disclaimer box content to generated text
  */
 export function appendDisclaimer(text: string): string {
-  return `${text}\n\n---\n*⚠️ DISCLAIMER: Hasil ini adalah draf buatan sistem JEDA Agent Studio untuk diskusi internal tim. JEDA bukan aplikasi pinjaman. JEDA tidak menggantikan nasihat medis, hukum, atau keuangan profesional.*`;
+  return `${text}\n\n---\n*⚠️ Draf untuk diskusi dan edukasi tim JEDA, bukan nasihat profesional. JEDA tidak menyalurkan pinjaman, tidak memberikan rekomendasi investasi personal, dan tidak mengumpulkan kontak HP pengguna.*`;
 }
